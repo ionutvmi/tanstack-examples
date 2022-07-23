@@ -16,22 +16,47 @@ interface Item {
 
 const columns: ColumnDef<Item>[] = [
   {
+    id: "name",
     header: "Name",
     accessorKey: "name",
-    filterFn: "auto",
   },
   {
+    id: "price",
     header: "Price",
     accessorKey: "price",
-    filterFn: (row, columnId, filterValue) =>
-      String(row.getValue(columnId)).includes(filterValue),
+    filterFn: (row, columnId, filterValue) => {
+      const columnValue = row.getValue(columnId) as number;
+      filterValue = filterValue.trim();
+
+      if (filterValue.length > 1) {
+        if (filterValue.startsWith("<")) {
+          return columnValue < Number(filterValue.substr(1));
+        }
+
+        if (filterValue.startsWith(">")) {
+          return columnValue > Number(filterValue.substr(1));
+        }
+
+        if (filterValue.startsWith("=")) {
+          return columnValue == Number(filterValue.substr(1));
+        }
+      }
+
+      return String(columnValue).includes(filterValue);
+    },
   },
   {
+    id: "formatted",
     header: "Formatted",
     accessorFn: (row) => `${row.name} $${row.price}`,
-    filterFn: "auto",
   },
 ];
+
+const filerPlaceholders: { [key: string]: string } = {
+  name: "Type part of the value",
+  price: "Use <, > or part of the value",
+  formatted: "Type part of the value",
+};
 
 interface TableProps {
   initialData: Item[];
@@ -69,7 +94,9 @@ function CustomTable(props: TableProps) {
                     </button>
                     <input
                       value={header.column.getFilterValue() as string}
+                      placeholder={filerPlaceholders[header.id]}
                       onChange={(e) => {
+                        console.log(header.id);
                         let val: string = e.target.value;
                         header.column.setFilterValue(val);
                       }}

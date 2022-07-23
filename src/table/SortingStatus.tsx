@@ -8,7 +8,7 @@ interface SortingStatusProps {
 function SortingStatus({ direction }: SortingStatusProps) {
   if (!direction) {
     return (
-      <span className="SortingStatus__unsorted">
+      <span title="Listing order" className="SortingStatus__unsorted">
         <span>🔼</span>
         <span>🔽</span>
       </span>
@@ -16,10 +16,10 @@ function SortingStatus({ direction }: SortingStatusProps) {
   }
 
   if (direction == "asc") {
-    return <span> 🔼 </span>;
+    return <span title="Ascending"> 🔼 </span>;
   }
 
-  return <span> 🔽 </span>;
+  return <span title="Descending"> 🔽 </span>;
 }
 
 export default SortingStatus;
