@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.table thead {
+  border-bottom: 3px solid #ccc;
+}
+
+.table tr {
+  border-bottom: 1px solid #ccc;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #333;
+}
+
+
+.table td,
+.table th {
+  padding: 10px;
+}
+
+.table .column-btn {
+  background: none;
+  color: #ccc;
+  border: 0;
+  width: 100%;
+  font-size: 20px;
+  line-height: 1.2em;
+  cursor: pointer;
+}
